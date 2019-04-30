@@ -1,26 +1,40 @@
 import React from 'react';
-import logo from './logo.svg';
+import City from './city/City';
 import './App.css';
 
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export interface ICity {
+  name: string;
+  latitude: number;
+  longitude: number;
+  weather: {
+    temperature: string;
+    time: number;
+    timezone: string;
+  };
+}
+
+export interface IAppState {
+  cities: ICity[];
+}
+
+class App extends React.Component<{}, IAppState> {
+  state: IAppState = { cities: [] };
+
+  componentDidMount() {
+    const socket = new WebSocket('wss://ripley-labs-test.herokuapp.com');
+    socket.onmessage = (messageEvent) => {
+      var cities = JSON.parse(messageEvent.data);
+      this.setState({ cities });
+    };
+  }
+
+  render () {
+    return (
+      <div className='App'>
+        {this.state.cities.map(c => <City key={c.name} {...c}></City>)}
+      </div>
+    )
+  }
 }
 
 export default App;
