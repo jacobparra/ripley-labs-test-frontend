@@ -1,10 +1,24 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+Technical challenge for Ripley Labs.
+
+This front app uses websockets to receive information for cities weather. Backend source code can be found at https://github.com/jacobparra/ripley-labs-test
+
+Live demo: https://ripley-labs-test-frontend.herokuapp.com
+
+## Usage
+
+Clone the repo, then `npm install` and finally `npm run dev`.
+
+## Deployment
+
+Heroku was used for the live demo. The typescript source is transpiled automatically on each deploy with `npm run build`. Then the static files are served with the tiny package `serve` in NodeJS.
+
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `npm start`
+### `npm run dev`
 
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
